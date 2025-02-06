@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 const Modal = ({ isOpen, closeModal }:{isOpen:boolean,closeModal:()=>void}) => {
   if (!isOpen) return null;

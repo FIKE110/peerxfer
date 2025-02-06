@@ -1,4 +1,3 @@
-import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
 const NavigatePeerDetailsPageButton = ({text,details}:{text:string,details:"send" | "receive"}) => {
