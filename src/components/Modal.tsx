@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const Modal = ({ isOpen, closeModal }) => {
+const Modal = ({ isOpen, closeModal }:{isOpen:boolean,closeModal:()=>void}) => {
   if (!isOpen) return null;
 
   return (

@@ -1,5 +1,4 @@
-import { Power} from "lucide-react"
-import { useContext, useEffect, useState } from "react"
+import { useContext } from "react"
 import { AppContext, AppContextType } from "../App"
 import ConnectionStatus from "./ConnectionStatus"
 
@@ -11,20 +10,8 @@ export function getColorForState(state:PeerState):string{
 
 
 export const ConnectedStatusComponent = () => {
-    const [peerState,setPeerState]=useState<PeerState>('offline')
-    const {connected,peer}=useContext<AppContextType | null>(AppContext) as AppContextType
+    const {connected}=useContext<AppContextType | null>(AppContext) as AppContextType
 
-    useEffect(()=>{
-        if(peer && connected){
-            setPeerState('connected')
-        }
-        else if(peer){
-            setPeerState('ready')
-        }
-        else{
-            setPeerState('offline')
-        }
-    },[connected,peer])
 
   return (
     <div className="flex items-center text-center w-full justify-between p-2">

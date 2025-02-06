@@ -29,7 +29,7 @@ const peerConfig={
 
 export default function HomePageComponent() {
   const location=useLocation()
-  const {peer:userPeer,currentMetaData,downloadLinkRef,peerConnectionRef,setRemotePeer,setConnected,setPeer}=useContext<AppContextType | null>(AppContext) as AppContextType
+  const {currentMetaData,downloadLinkRef,peerConnectionRef,setRemotePeer,setConnected,setPeer}=useContext<AppContextType | null>(AppContext) as AppContextType
   const navigate=useNavigate()
   const [formData, setFormData] = useState<PeerFormData>({
     peerName: "",
@@ -38,7 +38,7 @@ export default function HomePageComponent() {
   })
   const [useCustomPeerName,setUseCustomPeerName]=useState(false)
   const toastRef=useRef<string | number>()
-  const submitButtonRef=useRef<HTMLButtonElement | null>()
+  const submitButtonRef=useRef<HTMLButtonElement | null>(null)
   useEffect(()=>{
     if(!location.state?.details){
       navigate("/transfer")

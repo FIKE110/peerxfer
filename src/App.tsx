@@ -23,22 +23,24 @@ export type AppContextType={
   setRemotePeer:Dispatch<SetStateAction<RemotePeerType | null>>,
   peerConnectionRef:MutableRefObject<DataConnection | undefined>,
   currentMetaData:MutableRefObject<DataSentType | undefined>,
-  downloadLinkRef:MutableRefObject<HTMLAnchorElement >
+  downloadLinkRef:MutableRefObject<HTMLAnchorElement | null>
 }
 
 export const AppContext=createContext<AppContextType | null>(null)
 
-export function processDataConnectionData(data:unknown,currentMetaData:MutableRefObject<DataSentType | undefined>,downloadLinkRef:MutableRefObject<HTMLAnchorElement>){
+export function processDataConnectionData(data:unknown,currentMetaData:MutableRefObject<DataSentType | undefined>,downloadLinkRef:MutableRefObject<HTMLAnchorElement | null>){
   if(data instanceof ArrayBuffer){
     console.log(data)
    if(currentMetaData.current){
     const fileBlob=new Blob([data],{type:currentMetaData.current.mimeType ? currentMetaData.current?.mimeType :'text/plain'})
     console.log(fileBlob)
     const url=URL.createObjectURL(fileBlob)
-    downloadLinkRef.current.href=url
-    downloadLinkRef.current.download=currentMetaData.current.filename
-    downloadLinkRef.current.click()
-    toast("File received")
+    if(downloadLinkRef.current){
+      downloadLinkRef.current.href=url
+      downloadLinkRef.current.download=currentMetaData.current.filename
+      downloadLinkRef.current.click()
+      toast("File received")
+    }
   }
    currentMetaData.current=undefined
   }
@@ -55,7 +57,7 @@ export default function App(){
   const [connected,setConnected]=useState<boolean>(false)
   const peerConnectionRef=useRef<DataConnection>()
   const currentMetaData=useRef<DataSentType>()
-  const downloadLinkRef=useRef<HTMLAnchorElement>()
+  const downloadLinkRef=useRef<HTMLAnchorElement | null>(null)
 
 
 
